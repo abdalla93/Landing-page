@@ -20,23 +20,6 @@
 const navBar = document.querySelector("#navbar__list");
 const sections = document.querySelectorAll("section");
 
-function addLi(index) {
-  const section = `Section ${index + 1}`;
-  const newLi = `<li
-   class="menu__link"><a href="#section${index + 1}">${section}</a></li>`;
-  navBar.insertAdjacentHTML("beforeend", newLi);
-}
-
-function ElementListener(section, index) {
-  addLi(index);
-  document.addEventListener("scroll", () => {
-    if (isSectionInViewport(section)) {
-      section.classList.add("your-active-class");
-    } else {
-      section.classList.remove("your-active-class");
-    }
-  });
-}
 sections.forEach(ElementListener);
 
 /**
@@ -44,6 +27,7 @@ sections.forEach(ElementListener);
  * Start Helper Functions
  *
  */
+
 function isSectionInViewport(section) {
   let size = section.getBoundingClientRect();
 
@@ -63,8 +47,24 @@ function isSectionInViewport(section) {
  */
 
 // build the nav
+function addLi(index) {
+  const section = `Section ${index + 1}`;
+  const newLi = `<li
+   class="menu__link"><a href="#section${index + 1}">${section}</a></li>`;
+  navBar.insertAdjacentHTML("beforeend", newLi);
+}
 
 // Add class 'active' to section when near top of viewport
+function ElementListener(section, index) {
+  addLi(index);
+  document.addEventListener("scroll", () => {
+    if (isSectionInViewport(section)) {
+      section.classList.add("your-active-class");
+    } else {
+      section.classList.remove("your-active-class");
+    }
+  });
+}
 
 // Scroll to anchor ID using scrollTO event
 
