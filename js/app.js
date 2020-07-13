@@ -45,18 +45,8 @@ function isSectionInViewport(section) {
  * Begin Main Functions
  *
  */
-
-// build the nav
-function addLi(index) {
-  const section = `Section ${index + 1}`;
-  const newLi = `<li
-   class="menu__link"><a href="#section${index + 1}">${section}</a></li>`;
-  navBar.insertAdjacentHTML("beforeend", newLi);
-}
-
-// Add class 'active' to section when near top of viewport
-function ElementListener(section, index) {
-  addLi(index);
+function ElementListener(section) {
+  addLi(section);
   document.addEventListener("scroll", () => {
     if (isSectionInViewport(section)) {
       section.classList.add("your-active-class");
@@ -66,8 +56,24 @@ function ElementListener(section, index) {
   });
 }
 
-// Scroll to anchor ID using scrollTO event
+// build the nav
+function addLi(section) {
+  const newLi = `<li
+   class="menu__link"><a href="#${section.id}">${section.dataset.nav}</a></li>`;
+  navBar.insertAdjacentHTML("beforeend", newLi);
+}
 
+// Add class 'active' to section when near top of viewport
+
+// Scroll to anchor ID using scrollTO event
+document.querySelectorAll("a").forEach((a) => {
+  a.addEventListener("click", function (event) {
+    event.preventDefault();
+    document.querySelector(this.getAttribute("href")).scrollIntoView({
+      behavior: "smooth",
+    });
+  });
+});
 /**
  * End Main Functions
  * Begin Events
@@ -79,3 +85,4 @@ function ElementListener(section, index) {
 // Scroll to section on link click
 
 // Set sections as active
+// href="#section${index + 1}"
